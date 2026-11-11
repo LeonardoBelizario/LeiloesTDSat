@@ -20,6 +20,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         initComponents();
         listarProdutos();
     }
+      
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -202,24 +203,29 @@ public class listagemVIEW extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void listarProdutos(){
-        try {
+            try {
             ProdutosDAO produtosdao = new ProdutosDAO();
-            
-            DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
-            model.setNumRows(0);
-            
-            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
-            
-            for(int i = 0; i < listagem.size(); i++){
-                model.addRow(new Object[]{
+        
+            // Pega o modelo da tabela da tela (listaProdutos)
+            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) listaProdutos.getModel();
+            model.setNumRows(0); // Limpa as linhas antigas
+        
+            // Puxa a lista de produtos do banco de dados MySQL
+            java.util.ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
+                
+             // Preenche a tabela linha por linha
+            for (int i = 0; i < listagem.size(); i++) {
+                 model.addRow(new Object[]{
                     listagem.get(i).getId(),
                     listagem.get(i).getNome(),
                     listagem.get(i).getValor(),
                     listagem.get(i).getStatus()
-                });
+                 });
             }
-        } catch (Exception e) {
-        }
+            } catch (Exception e) {
+                 javax.swing.JOptionPane.showMessageDialog(this, "Erro ao listar produtos: " + e.getMessage());
+            }
+
     
     }
 }

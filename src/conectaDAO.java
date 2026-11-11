@@ -21,12 +21,13 @@ public class conectaDAO {
         Connection conn = null;
         
         try {
-        
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11?user=root&password=");
+            // Conexão configurada utilizando o usuário dedicado da aplicação
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/uc11", "leilao_app", "SenhaApp123!");
             
-        } catch (SQLException erro){
-            JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());
+               } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ConectaDAO: " + erro.getMessage());
         }
+
         return conn;
     }
     
